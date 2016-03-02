@@ -1,4 +1,4 @@
-name: wercker-step-typings
+name: typings-install
 version: 0.0.1
 description: A wercker step to install typings
 keywords:
