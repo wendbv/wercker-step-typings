@@ -1,0 +1,5 @@
+name: wercker-step-typings
+version: 0.0.1
+description: A wercker step to install typings
+keywords:
+  - typings
