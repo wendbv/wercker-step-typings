@@ -12,7 +12,7 @@ function npm_package_is_installed {
 # First make sure typings is installed
 if ! type typings &> /dev/null ; then
     # Check if it is in repo
-    if ! npm_package_is_installed typings ; then
+    if npm_package_is_installed typings == 0 ; then
         info "typings not installed, trying to install it through npm"
 
         sudo npm install -g --silent typings
