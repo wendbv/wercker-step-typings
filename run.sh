@@ -1,8 +1,27 @@
 #!/bin/bash
 
+# Function to detect if the package is installed
+function npm_package_is_installed {
+    if npm list --depth 1 --parseable true | grep "${1}"; then
+        return 1
+    else
+        return 0
+    fi
+}
+
+# First make sure typings is installed
 if ! type typings &> /dev/null ; then
-    sudo npm install -g --silent typings
-    typings_command="typings"
+    # Check if it is in repo
+    if ! npm_package_is_installed typings ; then
+        info "typings not installed, trying to install it through npm"
+
+        sudo npm install -g --silent typings
+        typings_command="typings"
+    else
+        info "typings is available locally"
+        debug "typings version: $(node ./node_modules/.bin/typings --version)"
+        typings_command="node ./node_modules/.bin/typings"
+    fi
 else
     # typings is available globally
     info "typings is available"
