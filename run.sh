@@ -1,6 +1,8 @@
+#!/bin/bash
+
 # Function to detect if the package is installed
 function npm_package_is_installed {
-    if [ $(npm list --depth 0 --parseable true "${2}" | grep "${1}$") ]; then
+    if [ "$(npm list --depth 0 --parseable true "${2}" | grep "${1}$")" ]; then
         return 1
     else
         return 0
@@ -10,7 +12,7 @@ function npm_package_is_installed {
 # First make sure typings is installed
 if ! type typings &> /dev/null ; then
     # Check if it is in repo
-    if ! $(npm_package_is_installed typings) ; then
+    if ! npm_package_is_installed typings ; then
         info "typings not installed, trying to install it through npm"
 
         sudo npm install -g --silent typings
@@ -34,7 +36,7 @@ result="$?"
 set -e
 
 # Fail if it is not a success or warning
-if [[ result -ne 0 && result -ne 6 ]]; then
+if [[ "$(result -ne 0 && result -ne 6)" ]]; then
     warn "$result"
     fail "typings command failed"
 else
