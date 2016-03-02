@@ -2,7 +2,7 @@
 
 # Function to detect if the package is installed
 function npm_package_is_installed {
-    if npm list --depth 0 --parseable true | grep "${1}$"; then
+    if npm list --depth 1 "${1}" > /dev/null 2>&1; then
         return 1
     else
         return 0
